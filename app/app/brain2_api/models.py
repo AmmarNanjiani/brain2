@@ -4,20 +4,20 @@ from django.db import models
 # Create your models here.
 
 class Author(models.Model):
-    fname = models.CharField()
-    lname = models.CharField()
+    fname = models.CharField(max_length=255)
+    lname = models.CharField(max_length=255)
 
     def __str__(self):
         return f'{self.fname} {self.lname}'
 
 class BookTag(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
 
 class Book(models.Model):
-    title = models.CharField()
+    title = models.CharField(max_length=255)
     author = models.ManyToManyField(Author)
     published = models.DateField()
     tags = models.ManyToManyField(BookTag)
@@ -26,7 +26,7 @@ class Book(models.Model):
         return self.title
 
 class NoteTag(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
@@ -34,7 +34,7 @@ class NoteTag(models.Model):
 class Note(models.Model):
     highlight = models.TextField()
     annotation = models.TextField()
-    chapter = models.CharField()
+    chapter = models.CharField(max_length=255)
     datetime = models.DateTimeField()
     book = models.ForeignKey(to=Book, on_delete=models.CASCADE)
     tags = models.ManyToManyField(NoteTag)

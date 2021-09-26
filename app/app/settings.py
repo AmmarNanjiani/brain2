@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app.brain2_api.apps.Brain2ApiConfig',
     'rest_framework',
 ]
 

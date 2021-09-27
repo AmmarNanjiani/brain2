@@ -1,10 +1,18 @@
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 from .models import *
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ('id', 'fname', 'lname')
+
+        validators = [
+            UniqueTogetherValidator(
+                queryset = Author.objects.all(),
+                fields = ['fname', 'lname']
+            )
+        ]
 
 class BookTagSerializer(serializers.ModelSerializer):
     class Meta:

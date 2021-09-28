@@ -7,13 +7,6 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = ('id', 'fname', 'lname')
 
-        validators = [
-            UniqueTogetherValidator(
-                queryset = Author.objects.all(),
-                fields = ['fname', 'lname']
-            )
-        ]
-
 class BookTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookTag
@@ -32,6 +25,6 @@ class NoteTagSerializer(serializers.ModelSerializer):
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        fields = ('id', 'book', 'tags', 'datetime', 'chapter', 'highlight', 'annotation')
+        fields = ('id', 'book', 'tags', 'datetime', 'chapter', 'highlight', 'annotation', 'linked_notes')
         
 

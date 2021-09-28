@@ -8,3 +8,11 @@ The API can be used however you want, but it is designed to work with data from 
 
 [This code](https://github.com/AmmarNanjiani/KOReader-Calbre-Sidecar-Parser) can be used to parse the data from Calibre and the plugin.
 
+
+# Usage
+Make sure you have docker installed.
+
+1) Run `docker-compose build` followed by `docker-compose up`
+
+2) Navigate to 
+

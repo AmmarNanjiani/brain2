@@ -3,6 +3,8 @@ FROM python:3.9-alpine
 
 EXPOSE 8000
 
+WORKDIR /app
+
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -13,19 +15,19 @@ ENV PYTHONUNBUFFERED=1
 RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
 
+
+
 # Install pip requirements
 RUN pip install --upgrade pip
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
 
-WORKDIR /app
 # copy entrypoint.sh
-COPY ./app/entrypoint.sh .
+COPY ./entrypoint.sh .
 RUN sed -i 's/\r$//g' /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-
-COPY /app /app
+COPY . .
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers

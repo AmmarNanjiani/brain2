@@ -14,20 +14,15 @@ services:
     build: ./frontend
     command: npm start
     volumes:
-      - ./frontend:/frontend
+      - './frontend:/app/frontend'
+      - '/app/frontend/node_modules'
     ports:
       - 3000:3000
     depends_on:
       - db
   db:
     image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-
-volumes:
-  postgres_data:
-  node-modules: 

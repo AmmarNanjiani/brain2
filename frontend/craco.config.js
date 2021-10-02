@@ -1,5 +1,8 @@
 module.exports = {
-    style: {
+  eslint: {
+    enable: false,
+  },
+  style: {
       postcss: {
         plugins: [
           require('tailwindcss'),

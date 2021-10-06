@@ -15,7 +15,7 @@ import os
 import configparser
 
 config = configparser.ConfigParser(interpolation=None)
-config.read('./app/config.ini')
+config.read('./config.ini')
 dev_config = config['DEV']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

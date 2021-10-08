@@ -3,7 +3,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import ContentEditable from 'react-contenteditable';
 import ReactDOMServer from 'react-dom/server';
 import ReactTags from 'react-tag-autocomplete';
-
+import Autosuggest from 'react-autosuggest'
 
 function Annotation(props) {
   if(!props.annotation) {
@@ -52,39 +52,125 @@ function LinkedNotes(props) {
 
 function Tag(props) {
 
+  function handleClick() {
+    props.removeTag(props.tag)
+  }
+
+  const [val, setVal] = useState(props.tag)
+  const [suggestions, setSuggestions] = useState([])
+
+  const getSuggestions = value => {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+
+    return inputLength === 0 ? [] : props.suggestions.filter(item =>
+      item.name.toLowerCase().slice(0, inputLength) === inputValue
+      )
+  }
+
+  const getSuggestionValue = suggestion => suggestion.name
+
+  const renderSuggestion = suggestion => (
+    <div>
+      {suggestion.name}
+    </div>
+  )
+
+  const onChange = (event, { newValue }) => {
+    setVal(newValue)
+  }
+
+  const onSuggestionsFetchRequested = ({ value }) => {
+    setSuggestions(getSuggestions(value))
+  }
+
+  const onSuggestionsClearRequested = () => {
+    setSuggestions([])
+  }
+
+  const inputProps = {
+    placeholder: 'Type a tag name',
+    value: val,
+    onChange: onChange,
+    class: 'bg-gray-200 flex-1',
+    oninput: "this.style.minWidth = ((this.value.length + 1) * 7) + 'px';"
+  }
+
+
+
+  const renderInputComponent = inputProps => (
+      <input {...inputProps} />
+  )
+
+  // return <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex-1">
+  //     <button onClick={handleClick} class="inline-block text-gray-600">&times; &nbsp;</button>
+  //     <span class="inline-block bg-gray-200">
+  //     <Autosuggest 
+  //       suggestions={props.suggestions}
+  //       onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+  //       onSuggestionsClearRequested={onSuggestionsClearRequested}
+  //       getSuggestionValue={getSuggestionValue}
+  //       renderSuggestion={renderSuggestion}
+  //       renderInputComponent={renderInputComponent}
+  //       inputProps={inputProps}
+  //     />
+  //     </span>
+  // </span>
+
   return <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-    <ContentEditable 
+      <button onClick={handleClick} class="inline-block text-gray-600">&times; &nbsp;</button>
+      <ContentEditable 
       html={props.tag}
-    />
+      className="inline-block"
+      />
   </span>
+
 }
 
 function Tags(props) {
   if(props.tags.length < 1){
     return null
   }
+
+  const [allTags, setAllTags] = useState([])
   const [tags, setTags] = useState([])
 
   useEffect(() => {
-    let tags_promises = []
-    let tags = []
+    axios.get('/note_tag/').then(response => {
+      setAllTags(response.data)
+      let myTags = response.data.filter(function (tag) {
+        return props.tags.includes(tag.id)
+      })
+      setTags(myTags)
 
-    for (let i = 0; i < props.tags.length; i++) {
-      tags_promises.push(axios.get('/note_tag/' + props.tags[i]).then(response => {
-        tags.push(response)
-      }))
-    }
-
-    Promise.all(tags_promises).then(() => setTags(tags))
-
-    // axios.get('/book/' + props.data.book).then(() => setTags)
+    })
   }, [])
 
-  console.log(tags)
+
+
+  // setTags(myTags)
+  // console.log(allTags)
+  // console.log(props.tags)
+  // console.log(tags)
+
+  function addNewTag() {
+    setTags(tags.concat({name: ''}))
+    console.log(tags)
+  }
+
+  function removeTag(name) {
+    let array = tags.filter(function(tag) {
+      return tag.name !== name
+    })
+    setTags(array)
+  }
   
   return (
     <div class="px-6 pt-4 pb-2">
-      {tags.map(tag => <Tag tag={tag.data.name} />)}
+      {tags.map(tag => <Tag tag={tag.name} removeTag={removeTag} suggestions={allTags}/>)}
+      <button onClick={addNewTag} class="inline-block bg-gray-200 rounded-full px-3 py-1 text-lg font-semibold text-gray-700 mr-2 mb-2">
+        &#43;
+      </button>
     </div>
   )
 }

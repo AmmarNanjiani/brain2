@@ -52,7 +52,7 @@ class Note(models.Model):
     annotation = models.TextField(blank=True)
     chapter = models.CharField(max_length=255, blank=True)
     datetime = models.DateTimeField(null=True, blank=True)
-    book = models.ForeignKey(to=Book, on_delete=models.CASCADE) # cannot be multiple books with the same highlight, book, and chapter. enforce at app level.
+    book = models.ForeignKey(to=Book, on_delete=models.CASCADE, related_name="notes") # cannot be multiple books with the same highlight, book, and chapter. enforce at app level.
     tags = models.ManyToManyField(NoteTag, blank=True)
     linked_notes = models.ManyToManyField('self', symmetrical=True, blank=True)
 

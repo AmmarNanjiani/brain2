@@ -15,7 +15,7 @@ class BookTagSerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ('id', 'title', 'author', 'published', 'tags')
+        fields = ('id', 'title', 'author', 'published', 'tags', 'notes')
 
 class NoteTagSerializer(serializers.ModelSerializer):
     class Meta:

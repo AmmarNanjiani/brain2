@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Note from './components/Note';
 import React, {useState, useEffect} from 'react';

@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import ContentEditable from 'react-contenteditable';
 import ReactDOMServer from 'react-dom/server';
 import ReactTags from 'react-tag-autocomplete';
 import Autosuggest from 'react-autosuggest'
+import "./note-styles.css"
 
 function Annotation(props) {
   if(!props.annotation) {
@@ -52,88 +53,17 @@ function LinkedNotes(props) {
 
 function Tag(props) {
 
-  function handleClick() {
-    props.removeTag(props.tag)
-  }
-
-  const [val, setVal] = useState(props.tag)
-  const [suggestions, setSuggestions] = useState([])
-
-  const getSuggestions = value => {
-    const inputValue = value.trim().toLowerCase()
-    const inputLength = inputValue.length
-
-    return inputLength === 0 ? [] : props.suggestions.filter(item =>
-      item.name.toLowerCase().slice(0, inputLength) === inputValue
-      )
-  }
-
-  const getSuggestionValue = suggestion => suggestion.name
-
-  const renderSuggestion = suggestion => (
-    <div>
-      {suggestion.name}
-    </div>
-  )
-
-  const onChange = (event, { newValue }) => {
-    setVal(newValue)
-  }
-
-  const onSuggestionsFetchRequested = ({ value }) => {
-    setSuggestions(getSuggestions(value))
-  }
-
-  const onSuggestionsClearRequested = () => {
-    setSuggestions([])
-  }
-
-  const inputProps = {
-    placeholder: 'Type a tag name',
-    value: val,
-    onChange: onChange,
-    class: 'bg-gray-200 flex-1',
-    oninput: "this.style.minWidth = ((this.value.length + 1) * 7) + 'px';"
-  }
-
-
-
-  const renderInputComponent = inputProps => (
-      <input {...inputProps} />
-  )
-
-  // return <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 flex-1">
-  //     <button onClick={handleClick} class="inline-block text-gray-600">&times; &nbsp;</button>
-  //     <span class="inline-block bg-gray-200">
-  //     <Autosuggest 
-  //       suggestions={props.suggestions}
-  //       onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-  //       onSuggestionsClearRequested={onSuggestionsClearRequested}
-  //       getSuggestionValue={getSuggestionValue}
-  //       renderSuggestion={renderSuggestion}
-  //       renderInputComponent={renderInputComponent}
-  //       inputProps={inputProps}
-  //     />
-  //     </span>
-  // </span>
-
-  return <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-      <button onClick={handleClick} class="inline-block text-gray-600">&times; &nbsp;</button>
-      <ContentEditable 
-      html={props.tag}
-      className="inline-block"
-      />
+  return <span class="flex-1 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+      <button onClick={props.onDelete} class="text-gray-600">&times; &nbsp;</button>
+      {props.tag.name}
   </span>
 
 }
 
 function Tags(props) {
-  if(props.tags.length < 1){
-    return null
-  }
-
   const [allTags, setAllTags] = useState([])
   const [tags, setTags] = useState([])
+  // const reactTags = useRef()
 
   useEffect(() => {
     axios.get('/note_tag/').then(response => {
@@ -142,37 +72,64 @@ function Tags(props) {
         return props.tags.includes(tag.id)
       })
       setTags(myTags)
-
     })
   }, [])
 
+  const onDelete = useCallback((tagIndex) => {
+    setTags(tags.filter((_, i) => i !== tagIndex))
+  }, [tags])
 
+  const onAddition = useCallback((newTag) => {
+    setTags([...tags, newTag])
+    console.log('adding')
+  }, [tags])
 
-  // setTags(myTags)
-  // console.log(allTags)
-  // console.log(props.tags)
-  // console.log(tags)
+  console.log(allTags)
 
-  function addNewTag() {
-    setTags(tags.concat({name: ''}))
-    console.log(tags)
+  const reactTagsClassNames = {
+    root: 'react-tags',
+    rootFocused: 'is-focused',
+    selected: 'react-tags__selected',
+    selectedTag: 'react-tags__selected-tag',
+    selectedTagName: 'react-tags__selected-tag-name',
+    search: 'react-tags__search',
+    searchWrapper: 'react-tags__search-wrapper',
+    searchInput: 'react-tags__search-input',
+    suggestions: 'react-tags__suggestions',
+    suggestionActive: 'is-active',
+    suggestionDisabled: 'is-disabled',
+    suggestionPrefix: 'react-tags__suggestion-prefix'
   }
 
-  function removeTag(name) {
-    let array = tags.filter(function(tag) {
-      return tag.name !== name
-    })
-    setTags(array)
-  }
-  
   return (
-    <div class="px-6 pt-4 pb-2">
-      {tags.map(tag => <Tag tag={tag.name} removeTag={removeTag} suggestions={allTags}/>)}
-      <button onClick={addNewTag} class="inline-block bg-gray-200 rounded-full px-3 py-1 text-lg font-semibold text-gray-700 mr-2 mb-2">
-        &#43;
-      </button>
-    </div>
+    <>
+      <div class="px-6 pt-4 pb-2">
+        <ReactTags 
+          tags={tags}
+          suggestions={allTags}
+          onDelete={onDelete}
+          onAddition={onAddition}
+          tagComponent={Tag}
+          allowBackspace={false}
+          minQueryLength={1}
+          allowNew
+          newTagText
+          addOnBlur={true}
+          placeholderText="Add a tag"
+          classNames={reactTagsClassNames}
+        />
+      </div>
+    </>
   )
+  
+  // return (
+  //   <div class="px-6 pt-4 pb-2">
+  //     {tags.map(tag => <Tag tag={tag.name} removeTag={removeTag} suggestions={allTags}/>)}
+  //     <button onClick={addNewTag} class="inline-block bg-gray-200 rounded-full px-3 py-1 text-lg font-semibold text-gray-700 mr-2 mb-2">
+  //       &#43;
+  //     </button>
+  //   </div>
+  // )
 }
 
 function Note(props) {

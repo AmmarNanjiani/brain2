@@ -8,11 +8,12 @@ import "tailwindcss/tailwind.css"
 
 function App() {
   const [noteData, setNoteData] = useState([])
+  const [noteTags, setNoteTags] = useState([])
 
   axios.defaults.baseURL = 'http://localhost:8000/brain2_api'
 
   useEffect(()=>{
-    axios.get('http://localhost:8000/brain2_api/note/')
+    axios.get('/note/')
       .then(res=>{
         console.log(res)
         console.log(res.data);
@@ -21,14 +22,22 @@ function App() {
       .catch(err=>{
         console.log(err);
       })
+    
+    axios.get('/note_tag/').then(response => {
+      setNoteTags(response.data)
+    })    
   }, []);
+
+  function updateNoteTags(val) {
+    setNoteTags([...noteTags, val])
+  }
 
 
   return (
     <>
       {
         noteData.map((data, id)=>{
-          return <Note data={data} />;
+          return <Note data={data} noteTags={noteTags} updateNoteTags={updateNoteTags} />;
         })
       }
     </>

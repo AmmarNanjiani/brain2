@@ -1,44 +1,40 @@
 import './App.css';
 import Note from './components/Note';
+import Book from './components/Book';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import "tailwindcss/tailwind.css"
 
 
-function App() {
-  const [noteData, setNoteData] = useState([])
-  const [noteTags, setNoteTags] = useState([])
 
+function App() {
   axios.defaults.baseURL = 'http://localhost:8000/brain2_api'
 
-  useEffect(()=>{
-    axios.get('/note/')
-      .then(res=>{
-        console.log(res)
-        console.log(res.data);
-        setNoteData(res.data);
-      })
-      .catch(err=>{
-        console.log(err);
-      })
+  const [bookData, setBookData] = useState([])
+  const [bookTags, setBookTags] = useState([])
+  const [tagsLoading, setTagsLoading] = useState(true)
+  const [bookLoading, setBookLoading] = useState(true)
+
+  useEffect(() =>{
+    axios.get('/book/4/').then(response => {
+      console.log(response)
+      setBookData(response.data)
+      setBookLoading(false)
+    })
     
-    axios.get('/note_tag/').then(response => {
-      setNoteTags(response.data)
-    })    
-  }, []);
 
-  function updateNoteTags(val) {
-    setNoteTags([...noteTags, val])
-  }
+    axios.get('/book_tag/').then(response => {
+      console.log(response)
+      setBookTags(response.data)
+      setTagsLoading(false)
+    })
+
+  }, [])
 
 
-  return (
+  return (bookLoading || tagsLoading) ? <p>Loading...</p> : (
     <>
-      {
-        noteData.map((data, id)=>{
-          return <Note data={data} noteTags={noteTags} updateNoteTags={updateNoteTags} />;
-        })
-      }
+      <Book data={bookData} allTags={bookTags}/>
     </>
   );
 }

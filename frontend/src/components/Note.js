@@ -122,14 +122,11 @@ function Note(props) {
           console.log(res)
         });
     }
-
-    console.log('props from Note component')
-    console.log(props.data.tags)
     
     return (
       <>
-        <div class="p-10">  
-        <div class="w-full rounded overflow-hidden shadow-lg">
+        <div class="p-10 w-full" >  
+        <div class="rounded overflow-hidden shadow-lg bg-white">
           <div class="divide-y">
             <div class="flow-root text-lg text-black px-10 py-4">
               <span class="float-left">
@@ -140,7 +137,7 @@ function Note(props) {
                 onKeyDown={keyPress}               
                 />
               </span>
-              <span class="float-right">{date.toLocaleDateString()}</span>
+              <span class="float-right">{`${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</span>
             </div>
             <div class="p-10">
               <p class="text-black text-base">
@@ -153,8 +150,8 @@ function Note(props) {
               </p>
             </div>
             <Annotation annotation={props.data.annotation} id={props.data.id} />
-            <LinkedNotes notes={linked} />
-            <Tags note_id={props.data.id} tags={props.data.tags} allTags={props.noteTags} updateAllTags={props.updateNoteTags} />
+            {/* <LinkedNotes notes={linked} /> */}
+            <Tags pName="note" pid={props.data.id} tags={props.data.tags} allTags={props.noteTags} updateAllTags={props.updateNoteTags} />
           </div>
         </div>
       </div>

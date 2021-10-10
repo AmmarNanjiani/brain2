@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework import filters
 from .models import Author
 from .serializers import *
 
@@ -38,9 +39,22 @@ class NoteTagDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NoteTagSerializer
 
 class NoteList(generics.ListCreateAPIView):
-    queryset = Note.objects.all()
     serializer_class = NoteSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['tags__name', 'highlight', 'annotation', 'chapter']
+    ordering_fields = ['chapter', 'datetime']
+    ordering = ['datetime']
 
+    def get_queryset(self):
+        queryset = Note.objects.all()
+        book = self.request.query_params.get('book')
+
+        if book is not None:
+            queryset = queryset.filter(book=book)
+        
+
+        return queryset
+        
 class NoteDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer

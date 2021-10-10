@@ -11,10 +11,20 @@ function Tag(props) {
     </span>
   
   }
-  
+
+
+/*
+  props expected:
+  - allTags: tags from API to be used as suggestions
+  - tags: list of tag ids on the component that is calling this componenet
+  - pid: parent id. id of parent object from API to patch to
+  - pName: parent Name for API calls (all lowercase)
+*/
 function Tags(props) {
 
     // const reactTags = useRef()
+
+    const patchURL = `/${props.pName}/${props.pid}/`
 
     const [tags, setTags] = useState(
         props.allTags.filter(function (tag) {
@@ -25,7 +35,7 @@ function Tags(props) {
     const onDelete = useCallback((tagIndex) => {
         let newTags = tags.filter((_, i) => i !== tagIndex)
         setTags(newTags)
-        axios.patch('/note/' + props.note_id + '/', {tags : newTags.map(e => e.id)}).then(res => {
+        axios.patch(patchURL, {tags : newTags.map(e => e.id)}).then(res => {
         console.log(res)
         });
 
@@ -38,19 +48,19 @@ function Tags(props) {
         let newTags = []
 
         if(idxAllTags === -1) {
-        axios.post('/note_tag/', {name: newTag.name}).then(response => {
+        axios.post(`/${props.pName}_tag/`, {name: newTag.name}).then(response => {
             console.log(response)
             newTags = [...tags, response.data]
             props.updateAllTags(response.data)
             setTags(newTags)
-            axios.patch('/note/' + props.note_id + '/', {tags : newTags.map(e => e.id)}).then(res => {
+            axios.patch(patchURL, {tags : newTags.map(e => e.id)}).then(res => {
             console.log(res)
             });
         })
         } else {
         newTags = [...tags, props.allTags[idxAllTags]]
         setTags(newTags)
-        axios.patch('/note/' + props.note_id + '/', {tags : newTags.map(e => e.id)}).then(res => {
+        axios.patch(patchURL, {tags : newTags.map(e => e.id)}).then(res => {
             console.log(res)
         });
         }
@@ -79,7 +89,7 @@ return (
         suggestions={props.allTags}
         onDelete={onDelete}
         onAddition={onAddition}
-        tagComponent={Tag}
+        // tagComponent={Tag}
         allowBackspace={false}
         minQueryLength={1}
         allowNew

@@ -1,4 +1,4 @@
-/api/config.ini
+./api/config.ini
 
 # Django #
 *.log

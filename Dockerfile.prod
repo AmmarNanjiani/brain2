@@ -46,4 +46,4 @@ RUN DJANGO_SETTINGS_MODULE=app.settings.prod \
 
 EXPOSE $POST
 
-CMD python3 backend/manage.py runserver 0.0.0.0:$PORT
+CMD python3 api/manage.py runserver 0.0.0.0:$PORT

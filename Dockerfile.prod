@@ -1,0 +1,50 @@
+FROM python:3.9
+
+RUN apt-get -y install curl \
+  && curl -sL https://deb.nodesource.com/setup_8.x | bash \
+  && apt-get install nodejs \
+  && curl -o- -L https://yarnpkg.com/install.sh | bash
+
+WORKDIR /app/api
+
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
+
+# install psycopg2 dependencies
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
+
+
+# Install pip requirements
+RUN pip install --upgrade pip
+COPY requirements.txt .
+RUN python -m pip install -r requirements.txt
+
+WORKDIR /app/frontend
+
+COPY package*.json /app/frontend/
+
+RUN npm install
+
+COPY . /app/
+RUN npm run build
+
+WORKDIR /app/frontend/build
+
+RUN mkdir root && mv *.ico *.js *.json root
+
+RUN mkdir /app/api/staticfiles
+
+WORKDIR /app
+
+RUN DJANGO_SETTINGS_MODULE=app.settings.prod \
+    SECRET_KEY=somethingsupersecret \
+    python3 api/manage.py collectstatic --noinput
+
+EXPOSE $POST
+
+CMD python3 backend/manage.py runserver 0.0.0.0:$PORT

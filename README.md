@@ -28,3 +28,4 @@ Run `docker-compose up`, and navigate to [localhost:3000](localhost:3000) when y
 - An option to view notes by tag rather than by book
 - Link notes to other notes to create "mind map" style connections
 - Mind map visual
+- Add support for other types of content. Articles, maybe podcasts.

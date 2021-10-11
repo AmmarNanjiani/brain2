@@ -1,6 +1,6 @@
 # brain2
 
-Django REST API code for a self hosted "second brain".
+Django REST API and a React frontend for a self hosted "second brain".
 
 API to manage higlights and annotations in books, and a frontend to display the data in a useful way.
 

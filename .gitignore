@@ -1,5 +1,3 @@
-api/config.ini
-
 # Django #
 *.log
 *.pot

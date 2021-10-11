@@ -1,4 +1,4 @@
-# brain2-api
+# brain2
 
 Django REST API code for a self hosted "second brain".
 

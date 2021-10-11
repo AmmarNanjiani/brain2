@@ -34,7 +34,7 @@ RUN npm run build
 
 WORKDIR /app/frontend/build
 
-RUN mkdir root && mv *.ico *.js *.json root
+RUN mkdir root && mv *.ico *.png *.json *.txt root
 
 RUN mkdir /app/api/staticfiles
 

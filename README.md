@@ -24,6 +24,7 @@ Make sure you have docker installed.
 Run `docker-compose up`, and navigate to [localhost:3000](localhost:3000) when you want to browse your notes.
 
 ## Feature Roadmap
+- Sync with Calibre directly from the frontend rather than relying on an external script.
 - Creating and deleting notes, books, and tags
 - An option to view notes by tag rather than by book
 - Link notes to other notes to create "mind map" style connections

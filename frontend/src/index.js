@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom"
 
+document.title = 'brain2'
 ReactDOM.render(
   <BrowserRouter>
     <App />

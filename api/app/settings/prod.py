@@ -3,7 +3,6 @@ from app.settings.base import *
 import dj_database_url
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = False
 ALLOWED_HOSTS = [os.environ.get("PRODUCTION_HOST")]
 
 INSTALLED_APPS.extend(["whitenoise.runserver_nostatic"])

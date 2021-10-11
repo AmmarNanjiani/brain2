@@ -3,7 +3,7 @@ FROM python:3.9
 RUN apt-get -y install curl \
   && curl -sL https://deb.nodesource.com/setup_16.x | bash \
   && apt-get install nodejs 
-  
+
 WORKDIR /app/api
 
 # Keeps Python from generating .pyc files in the container
@@ -13,8 +13,8 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # install psycopg2 dependencies
-RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+RUN apt update \
+    && apt-get postgresql-dev gcc python3-dev musl-dev
 
 
 

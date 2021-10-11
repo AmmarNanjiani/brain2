@@ -25,10 +25,13 @@ class BookTagDetail(generics.RetrieveUpdateDestroyAPIView):
 class BookList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['tags__name', 'title', 'author__lname', 'author__fname']
 
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
 
 class NoteTagList(generics.ListCreateAPIView):
     queryset = NoteTag.objects.all()

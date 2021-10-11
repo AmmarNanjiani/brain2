@@ -5,8 +5,8 @@
     border-radius: 1px; */
   
     /* shared font styles */
-    font-size: 1em;
-    line-height: 1.2;
+    font-size: inherit;
+    line-height: inherit;
 
     /* clicking anywhere will focus the input */
     cursor: text;
@@ -70,10 +70,12 @@
     max-width: 100%;
   
     /* remove styles and layout from this element */
-    margin: 0;
+    /* margin: 0;
     padding: 0;
-    border: 0;
-    outline: none;
+    border: 1;
+    outline: none; */
+      border: 1px solid #878787;
+    border-radius: 1px;
   
     /* match the font styles */
     font-size: inherit;
@@ -86,6 +88,7 @@
   
   .react-tags__suggestions {
     position: absolute;
+    z-index: 1000;
     /* top: 100%;
     width: 100%; */
   }

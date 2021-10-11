@@ -3,18 +3,6 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 
-function SearchBar(props) {
-  const [query, setQuery] = useState("")
-  
-  return (
-    <div>
-      <input placeholder="Search..."/>
-    </div> 
-  )
-  
-
-}
-
 /*
   props
    - note_ids: list of ids for notes which will create the page.

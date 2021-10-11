@@ -3,22 +3,13 @@ import ReactTags from 'react-tag-autocomplete';
 import axios from 'axios';
 import "./tag-styles.css"
 
-function Tag(props) {
-
-    return <span class="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-        <button onClick={props.onDelete} class="text-gray-600">&times; &nbsp;</button>
-        {props.tag.name}
-    </span>
-  
-  }
-
-
 /*
   props expected:
   - allTags: tags from API to be used as suggestions
   - tags: list of tag ids on the component that is calling this componenet
   - pid: parent id. id of parent object from API to patch to
   - pName: parent Name for API calls (all lowercase)
+  - updateAllTags: function to update source of suggestion tags.
 */
 function Tags(props) {
 

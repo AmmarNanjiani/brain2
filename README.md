@@ -12,7 +12,19 @@ The API can be used however you want, but it is designed to work with data from 
 # Usage
 Make sure you have docker installed.
 
-1) Run `docker-compose build` followed by `docker-compose up`
+## Initial setup:
+1) Open a command line to the root of the project and enter `docker-compose up --build'
 
-2) Navigate to 
+2) Navigate to [localhost:3000](localhost:3000) to access the frontend, and [localhost:8000](localhost:3000) to read the API documentation.
 
+3) (Optional) populate the data in the API by syncing with Calibre using [this code](https://github.com/AmmarNanjiani/KOReader-Calbre-Sidecar-Parser).
+
+## Regular usage:
+
+Run `docker-compose up`, and navigate to [localhost:3000](localhost:3000) when you want to browse your notes.
+
+## Feature Roadmap
+- Creating and deleting notes, books, and tags
+- An option to view notes by tag rather than by book
+- Link notes to other notes to create "mind map" style connections
+- Mind map visual

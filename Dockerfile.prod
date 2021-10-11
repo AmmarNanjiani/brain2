@@ -20,7 +20,7 @@ RUN apt-get update \
 
 # Install pip requirements
 RUN pip install --upgrade pip
-COPY requirements.txt .
+COPY ./api/requirements.txt /app/api/
 RUN python -m pip install -r requirements.txt
 
 WORKDIR /app/frontend

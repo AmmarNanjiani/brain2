@@ -23,7 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns # DEV only
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('brain2_api/', include('app.brain2_api.urls')),
-    re_path(".*", TemplateView.as_view(template_name="index.html")),
+    path('', TemplateView.as_view(template_name="index.html")),
     
 ]
 

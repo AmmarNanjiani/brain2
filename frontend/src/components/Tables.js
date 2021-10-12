@@ -43,7 +43,7 @@ function BooksTable(props) {
   }, [])
 
   useEffect(() => {
-    let getURL = `/book`
+    let getURL = `/book/`
 
     if(query !== '') {
       getURL += `?search=${query}`

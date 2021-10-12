@@ -57,7 +57,7 @@ function App() {
     axios.defaults.baseURL = 'http://localhost:8000/brain2_api'
   }
 
-  console.log(axois.defaults.baseURL)
+  console.log(axios.defaults.baseURL)
   
 
   const [bookTags, setBookTags] = useState([])

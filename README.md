@@ -16,7 +16,8 @@ API Documentation: [my-brain2.herokuapp.com/brain2_api/](my-brain2.herokuapp.com
 
 
 # Usage
-Make sure you have docker installed.
+
+Make sure you have docker and docker-compose installed.
 
 ## Initial setup:
 1) Open a command line to the root of the project and enter `docker-compose up --build'

@@ -39,7 +39,7 @@ Run `docker-compose up`, and navigate to [localhost:3000](localhost:3000) when y
 - Mind map visualization
 - Add support for other types of content.
   - Articles by integrating with [Wallabag](https://github.com/wallabag/wallabag)
-  - Podcasts maybe? Would need a way to quickly capture audio snippets, and then convert them to text. [AntennaPod](https://antennapod.org/) is a good open source podcast app but it doesn't currently have the functionality to support this.
+  - Podcasts maybe? Would need a way to quickly capture audio snippets, and then convert them to text. [AntennaPod](https://antennapod.org/) is a good open source podcast app but it doesn't currently have the functionality to support this. However, there is an inactive pull request which would add something that could work: https://github.com/AntennaPod/AntennaPod/pull/5068
   - Tweets
   - Videos
   - Random Scrap Notes

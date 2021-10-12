@@ -15,7 +15,7 @@ function Book(props) {
     
     
     if(loading) {
-      axios.get(`/book/${book_id}`).then(response => {
+      axios.get(`/book/${book_id}/`).then(response => {
         console.log(response)
         setData(response.data)
 

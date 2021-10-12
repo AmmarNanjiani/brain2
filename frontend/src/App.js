@@ -51,7 +51,12 @@ function BookPage() {
 
 
 function App() {
-  axios.defaults.baseURL = 'http://localhost:8000/brain2_api'
+  if(process.env.NODE_ENV === 'production') {
+    axios.defaults.baseURL = process.env.BASEURL
+  } else {
+    axios.defaults.baseURL = 'http://localhost:8000/brain2_api'
+  }
+  
 
   const [bookTags, setBookTags] = useState([])
 

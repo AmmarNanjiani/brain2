@@ -4,6 +4,8 @@ Django REST API and a React frontend for a self hosted "second brain".
 
 API to manage higlights and annotations in books, and a frontend to display the data in a useful way.
 
+Demo at [my-brain2.herokuapp.com](my-brain2.herokuapp.com)
+
 The API can be used however you want, but it is designed to work with data from [KOReader](https://github.com/koreader/koreader), [Calibre](https://github.com/kovidgoyal/calibre) and this [KOReader Calibre Plugin](https://git.sr.ht/~harmtemolder/koreader-calibre-plugin).
 
 [This code](https://github.com/AmmarNanjiani/KOReader-Calbre-Sidecar-Parser) can be used to parse the data from Calibre and the plugin.

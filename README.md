@@ -30,9 +30,16 @@ Make sure you have docker installed.
 Run `docker-compose up`, and navigate to [localhost:3000](localhost:3000) when you want to browse your notes.
 
 ## Feature Roadmap
+- Make UI responsive to display cleanly on mobile.
 - Sync with Calibre directly from the frontend rather than relying on an external script.
-- Creating and deleting notes, books, and tags
+- Creating and deleting notes and books.
 - An option to view notes by tag rather than by book
-- Link notes to other notes to create "mind map" style connections
-- Mind map visual
-- Add support for other types of content. Articles, maybe podcasts.
+- Tag manager page
+- Functionality to link notes to other notes in the frontend to define "mind map" style connections. Backend functionality for this technically exists already.
+- Mind map visualization
+- Add support for other types of content.
+  - Articles by integrating with [Wallabag](https://github.com/wallabag/wallabag)
+  - Podcasts maybe? Would eed a way to quickly capture audio snippets, and then convert them to text.
+  - Tweets
+  - Videos
+  - Random Scrap Notes

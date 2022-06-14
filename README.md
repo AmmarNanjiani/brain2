@@ -12,7 +12,7 @@ The API can be used however you want, but it is designed to work with data from 
 
 # Demo
 Demo at [my-brain2.herokuapp.com](https://my-brain2.herokuapp.com)
-API Documentation: [my-brain2.herokuapp.com/brain2_api/](my-brain2.herokuapp.com/brain2_api/)
+API Documentation: [my-brain2.herokuapp.com/brain2_api/](https://my-brain2.herokuapp.com/brain2_api/)
 
 
 # Usage

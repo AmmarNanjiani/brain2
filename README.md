@@ -11,8 +11,8 @@ The API can be used however you want, but it is designed to work with data from 
 [This code](https://github.com/AmmarNanjiani/KOReader-Calbre-Sidecar-Parser) can be used to parse the data from Calibre and the plugin.
 
 # Demo
-Demo at [my-brain2.herokuapp.com](https://my-brain2.herokuapp.com)
-API Documentation: [my-brain2.herokuapp.com/brain2_api/](https://my-brain2.herokuapp.com/brain2_api/)
+Demo frontend: [my-brain2.herokuapp.com](https://my-brain2.herokuapp.com)
+API Documentation and Demo Endpoint: [my-brain2.herokuapp.com/brain2_api/](https://my-brain2.herokuapp.com/brain2_api/)
 
 
 # Usage
